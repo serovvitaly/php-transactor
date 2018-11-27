@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\ValueObject\Money;
+
 /**
  *
  */
@@ -13,81 +15,65 @@ class Transaction
 
     private $id;
 
-    private $sender_account_id;
+    private $statusCode;
 
-    private $recipient_account_id;
+    /** @var Account */
+    private $senderAccount;
+    /** @var Account */
+    private $recipientAccount;
+    /** @var Money */
+    private $transferredMoney;
 
-    private $money_minor_units;
+    public function __construct(Account $senderAccount, Account $recipientAccount, Money $transferredMoney)
+    {
+        $this->senderAccount = $senderAccount;
+        $this->recipientAccount = $recipientAccount;
+        $this->transferredMoney = $transferredMoney;
+    }
 
-    private $status_code;
-
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getSenderAccountId(): ?string
+    public function getSenderAccountId(): string
     {
-        return $this->sender_account_id;
+        return $this->senderAccount->getId();
     }
 
-    public function setSenderAccountId(string $sender_account_id): self
+    public function getRecipientAccountId(): string
     {
-        $this->sender_account_id = $sender_account_id;
-
-        return $this;
+        return $this->recipientAccount->getId();
     }
 
-    public function getRecipientAccountId(): ?string
+    public function getMoneyMinorUnits(): int
     {
-        return $this->recipient_account_id;
-    }
-
-    public function setRecipientAccountId(string $recipient_account_id): self
-    {
-        $this->recipient_account_id = $recipient_account_id;
-
-        return $this;
-    }
-
-    public function getMoneyMinorUnits(): ?int
-    {
-        return $this->money_minor_units;
-    }
-
-    public function setMoneyMinorUnits(int $money_minor_units): self
-    {
-        $this->money_minor_units = $money_minor_units;
-
-        return $this;
+        return $this->transferredMoney->getValueAsMinorUnits();
     }
 
     public function setStatusCode(int $statusCode): self
     {
-        $this->status_code = $statusCode;
+        $this->statusCode = $statusCode;
         return $this;
     }
 
-    public function setProcessStatus(): self
+    public function setProcessStatus(): void
     {
-        $this->status_code = self::PROCESS_STATUS;
-        return $this;
+        $this->statusCode = self::PROCESS_STATUS;
     }
 
-    public function setSuccessStatus(): self
+    public function setSuccessStatus(): void
     {
-        $this->status_code = self::SUCCESS_STATUS;
-        return $this;
+        $this->statusCode = self::SUCCESS_STATUS;
     }
 
-    public function setFailureStatus(): self
+    public function setFailureStatus(): void
     {
-        $this->status_code = self::FAILURE_STATUS;
-        return $this;
+        $this->statusCode = self::FAILURE_STATUS;
     }
 
     public function getStatusCode(): int
     {
-        return $this->status_code;
+        return $this->statusCode;
     }
 }

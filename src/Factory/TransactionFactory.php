@@ -10,10 +10,6 @@ class TransactionFactory implements TransactionFactoryInterface
 {
     public function make(Account $senderAccount, Account $recipientAccount, Money $transferringMoney): Transaction
     {
-        $moneyTransferTransaction = new Transaction();
-        $moneyTransferTransaction->setSenderAccountId($senderAccount->getId());
-        $moneyTransferTransaction->setRecipientAccountId($recipientAccount->getId());
-        $moneyTransferTransaction->setMoneyMinorUnits($transferringMoney->getValueAsMinorUnits());
-        return $moneyTransferTransaction;
+        return new Transaction($senderAccount, $recipientAccount, $transferringMoney);
     }
 }
