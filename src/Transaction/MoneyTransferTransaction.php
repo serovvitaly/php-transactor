@@ -39,31 +39,16 @@ class MoneyTransferTransaction implements MoneyTransferTransactionInterface
      */
     public function execute(Account $senderAccount, Account $recipientAccount, Money $transferringMoney): void
     {
-        $transaction = $this->make(
+        $transaction = $this->transactionFactory->make(
             $senderAccount,
             $recipientAccount,
             $transferringMoney
         );
+        $transaction->setProcessStatus();
 
         $this->transactionRepository->persist($transaction);
 
         $this->exec($transaction,
-            $senderAccount,
-            $recipientAccount,
-            $transferringMoney
-        );
-    }
-
-    /**
-     * Создание транзакции со статусом "Progress"
-     * @param $senderAccount
-     * @param $recipientAccount
-     * @param $transferringMoney
-     * @return Transaction
-     */
-    private function make($senderAccount, $recipientAccount, $transferringMoney): Transaction
-    {
-        return $this->transactionFactory->make(
             $senderAccount,
             $recipientAccount,
             $transferringMoney

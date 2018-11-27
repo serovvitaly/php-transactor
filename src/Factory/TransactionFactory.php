@@ -14,7 +14,6 @@ class TransactionFactory implements TransactionFactoryInterface
         $moneyTransferTransaction->setSenderAccountId($senderAccount->getId());
         $moneyTransferTransaction->setRecipientAccountId($recipientAccount->getId());
         $moneyTransferTransaction->setMoneyMinorUnits($transferringMoney->getValueAsMinorUnits());
-        $moneyTransferTransaction->setProcessStatus();
         return $moneyTransferTransaction;
     }
 }

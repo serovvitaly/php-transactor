@@ -12,10 +12,10 @@ use App\Service\Exception\ValidationException;
 use App\Service\MoneyTransferService;
 use App\Service\MoneyTransferServiceInterface;
 use App\Transaction\TransactionManagerInterface;
+use App\Validator\MoneyTransferValidatorInterface;
 use App\ValueObject\Exception\NegativeMoneyValueException;
 use App\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
-use App\Validator\MoneyTransferValidatorInterface;
 
 class MoneyTransferServiceTest extends TestCase
 {
