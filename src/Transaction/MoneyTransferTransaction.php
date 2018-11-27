@@ -7,28 +7,24 @@ use App\Entity\Exception\SenderBalanceIsEmptyException;
 use App\Entity\Transaction;
 use App\Repository\AccountRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
-use App\Service\Exception\CurrenciesMismatchMoneyTransferException;
 use App\Service\Exception\MoneyTransferTransactionException;
-use App\Service\Exception\TransactionException;
 use App\ValueObject\Money;
-use Doctrine\DBAL\ConnectionException;
-use Doctrine\ORM\EntityManagerInterface;
 
 class MoneyTransferTransaction implements MoneyTransferTransactionInterface
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /** @var TransactionManagerInterface */
+    private $transactionManager;
     /** @var AccountRepositoryInterface */
     private $accountRepository;
     /** @var TransactionRepositoryInterface */
     private $transactionRepository;
 
     public function __construct(
-        EntityManagerInterface $entityManager,
+        TransactionManagerInterface $transactionManager,
         AccountRepositoryInterface $accountRepository,
         TransactionRepositoryInterface $transactionRepository
     ) {
-        $this->entityManager = $entityManager;
+        $this->transactionManager = $transactionManager;
         $this->accountRepository = $accountRepository;
         $this->transactionRepository = $transactionRepository;
     }
@@ -85,7 +81,7 @@ class MoneyTransferTransaction implements MoneyTransferTransactionInterface
         Money $transferringMoney
     ): void {
 
-        $this->entityManager->getConnection()->beginTransaction();
+        $this->transactionManager->beginTransaction();
         try {
             /** Снятие средств с аккаунта отправителя */
             $senderAccount->withdrawMoney($transferringMoney);
@@ -99,26 +95,16 @@ class MoneyTransferTransaction implements MoneyTransferTransactionInterface
             $transaction->setSuccessStatus();
             $this->transactionRepository->persist($transaction);
 
-            $this->entityManager->getConnection()->commit();
+            $this->transactionManager->commit();
 
         } catch (SenderBalanceIsEmptyException $e) {
-            try {
-                $this->entityManager->getConnection()->rollBack();
-            } catch (ConnectionException $e) {
-                throw new MoneyTransferTransactionException($e->getMessage(), $e->getCode(), $e);
-            }
+            $this->transactionManager->rollBack();
             throw $e;
         } catch (\Exception $e) {
-
             /** Обновление статуса транзакции на "Failure" */
             $transaction->setFailureStatus();
             $this->transactionRepository->persist($transaction);
-
-            try {
-                $this->entityManager->getConnection()->rollBack();
-            } catch (ConnectionException $e) {
-                throw new MoneyTransferTransactionException($e->getMessage(), $e->getCode(), $e);
-            }
+            $this->transactionManager->rollBack();
             throw new MoneyTransferTransactionException($e->getMessage(), $e->getCode(), $e);
         }
     }

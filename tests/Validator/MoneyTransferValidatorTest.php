@@ -16,22 +16,12 @@ use PHPUnit\Framework\TestCase;
 
 class MoneyTransferValidatorTest extends TestCase
 {
-    /** @var AccountRepositoryInterface */
-    private $accountRepository;
-
-    public function __construct2(?string $name = null, array $data = [], string $dataName = '')
+    protected function getAccount(string $id)
     {
-        parent::__construct($name, $data, $dataName);
-
-        $this->accountRepository = $this->createMock(AccountRepositoryInterface::class);
-        $this->accountRepository->expects($this->any())
-            ->method('findOrMakeByIdentifier')
-            ->willReturnCallback(function (AccountIdentifier $identifier) {
-                $account = new Account();
-                $account->setId($identifier->getId());
-                return $account;
-            })
-        ;
+        $account = new Account();
+        $account->setId($id);
+        $account->setBalance(10);
+        return $account;
     }
 
     /**
@@ -42,12 +32,8 @@ class MoneyTransferValidatorTest extends TestCase
      */
     public function testValidate()
     {
-        $senderAccount = $this->accountRepository->findOrMakeByIdentifier(
-            new AccountIdentifier(1002001000200000 . 9850)
-        );
-        $recipientAccount = $this->accountRepository->findOrMakeByIdentifier(
-            new AccountIdentifier(2002001000200000 . 9850)
-        );
+        $senderAccount = $this->getAccount(1002001000200000 . 9850);
+        $recipientAccount = $this->getAccount(2002001000200000 . 9850);
         $money = new Money(new CurrencyIdentifier(9850), 1);
 
         $moneyTransferValidator = new MoneyTransferValidator();
@@ -65,12 +51,8 @@ class MoneyTransferValidatorTest extends TestCase
      */
     public function testAttemptTransferZeroAmountException()
     {
-        $senderAccount = $this->accountRepository->findOrMakeByIdentifier(
-            new AccountIdentifier(1002001000200000 . 9850)
-        );
-        $recipientAccount = $this->accountRepository->findOrMakeByIdentifier(
-            new AccountIdentifier(2002001000200000 . 9850)
-        );
+        $senderAccount = $this->getAccount(1002001000200000 . 9850);
+        $recipientAccount = $this->getAccount(2002001000200000 . 9850);
         $money = new Money(new CurrencyIdentifier(9850), 0);
 
         $moneyTransferValidator = new MoneyTransferValidator();
@@ -88,12 +70,8 @@ class MoneyTransferValidatorTest extends TestCase
      */
     public function testMoneyTransferBetweenSameAccountException()
     {
-        $senderAccount = $this->accountRepository->findOrMakeByIdentifier(
-            new AccountIdentifier(1002001000200000 . 9850)
-        );
-        $recipientAccount = $this->accountRepository->findOrMakeByIdentifier(
-            new AccountIdentifier(1002001000200000 . 9850)
-        );
+        $senderAccount = $this->getAccount(1002001000200000 . 9850);
+        $recipientAccount = $this->getAccount(1002001000200000 . 9850);
         $money = new Money(new CurrencyIdentifier(9850), 1);
 
         $moneyTransferValidator = new MoneyTransferValidator();
@@ -133,21 +111,13 @@ class MoneyTransferValidatorTest extends TestCase
         return [
             [
                 /** Проверка соответствия валют аккаунтов отправителя и получателя */
-                $senderAccount = $this->accountRepository->findOrMakeByIdentifier(
-                    new AccountIdentifier(1002001000200000 . 9850)
-                ),
-                $recipientAccount = $this->accountRepository->findOrMakeByIdentifier(
-                    new AccountIdentifier(2002001000200000 . 9851)
-                ),
+                $senderAccount = $this->getAccount(1002001000200000 . 9850),
+                $recipientAccount = $this->getAccount(2002001000200000 . 9851),
                 $money = new Money(new CurrencyIdentifier(9850), 1)
             ], [
                 /** Проверка соответствия валют аккаунта отправителя и переводимых денег */
-                $senderAccount = $this->accountRepository->findOrMakeByIdentifier(
-                    new AccountIdentifier(1002001000200000 . 9850)
-                ),
-                $recipientAccount = $this->accountRepository->findOrMakeByIdentifier(
-                    new AccountIdentifier(2002001000200000 . 9850)
-                ),
+                $senderAccount = $this->getAccount(1002001000200000 . 9850),
+                $recipientAccount = $this->getAccount(2002001000200000 . 9850),
                 $money = new Money(new CurrencyIdentifier(9851), 1)
             ],
         ];

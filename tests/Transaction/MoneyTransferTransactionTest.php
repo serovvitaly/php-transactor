@@ -4,23 +4,18 @@ namespace App\Tests\App\Transaction;
 
 use App\Entity\Account;
 use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Identifier\AccountIdentifier;
 use App\Identifier\CurrencyIdentifier;
 use App\Repository\AccountRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
 use App\Service\Exception\MoneyTransferTransactionException;
 use App\Transaction\MoneyTransferTransaction;
+use App\Transaction\TransactionManagerInterface;
 use App\ValueObject\Exception\NegativeMoneyValueException;
 use App\ValueObject\Money;
-use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTransferTransactionTest extends TestCase
 {
-    /** @var AccountRepositoryInterface */
-    private $accountRepository;
-    /** @var EntityManager */
-    private $entityManager;
     /** @var MoneyTransferTransaction */
     private $moneyTransferTransaction;
 
@@ -28,15 +23,15 @@ class MoneyTransferTransactionTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        /** @var EntityManager $entityManager */
-        $entityManager = '';
+        /** @var TransactionManagerInterface $transactionManager */
+        $transactionManager = $this->createMock(TransactionManagerInterface::class);
         /** @var AccountRepositoryInterface $accountRepository */
         $accountRepository = $this->createMock(AccountRepositoryInterface::class);
         /** @var TransactionRepositoryInterface $transactionRepository */
         $transactionRepository = $this->createMock(TransactionRepositoryInterface::class);
 
         $this->moneyTransferTransaction = new MoneyTransferTransaction(
-            $entityManager,
+            $transactionManager,
             $accountRepository,
             $transactionRepository
         );

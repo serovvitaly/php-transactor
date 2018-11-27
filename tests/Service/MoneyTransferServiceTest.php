@@ -3,7 +3,6 @@
 namespace App\Tests\App\Service;
 
 use App\Entity\Account;
-use App\Identifier\AccountIdentifier;
 use App\Identifier\CurrencyIdentifier;
 use App\Repository\AccountRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
@@ -11,10 +10,10 @@ use App\Service\Exception\TransactionException;
 use App\Service\Exception\ValidationException;
 use App\Service\MoneyTransferService;
 use App\Service\MoneyTransferServiceInterface;
+use App\Transaction\TransactionManagerInterface;
 use App\ValueObject\Exception\NegativeMoneyValueException;
 use App\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
-use App\Transaction\MoneyTransferTransactionInterface;
 use App\Validator\MoneyTransferValidatorInterface;
 
 class MoneyTransferServiceTest extends TestCase
@@ -28,16 +27,19 @@ class MoneyTransferServiceTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        //parent::bootKernel();
-        //$container = self::$kernel->getContainer();
+        $moneyTransferValidator = new \App\Validator\MoneyTransferValidator();
 
-        //$container->set(
-        //    TransactionRepositoryInterface::class,
-        //    $this->createMock(TransactionRepositoryInterface::class)
-        //);
-
-        $moneyTransferValidator = $this->createMock(MoneyTransferValidatorInterface::class);;
-        $moneyTransferTransaction = $this->createMock(MoneyTransferTransactionInterface::class);;
+        /** @var TransactionManagerInterface $transactionManager */
+        $transactionManager = $this->createMock(TransactionManagerInterface::class);
+        /** @var AccountRepositoryInterface $accountRepository */
+        $accountRepository = $this->createMock(AccountRepositoryInterface::class);
+        /** @var TransactionRepositoryInterface $transactionRepository */
+        $transactionRepository = $this->createMock(TransactionRepositoryInterface::class);
+        $moneyTransferTransaction = new \App\Transaction\MoneyTransferTransaction(
+            $transactionManager,
+            $accountRepository,
+            $transactionRepository
+        );
 
         $this->moneyTransferService = new MoneyTransferService(
             $moneyTransferValidator,
