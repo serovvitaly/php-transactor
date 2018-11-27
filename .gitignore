@@ -1,0 +1,5 @@
+.idea/
+phpunit
+composer
+docker-compose.yml
+vendor/
