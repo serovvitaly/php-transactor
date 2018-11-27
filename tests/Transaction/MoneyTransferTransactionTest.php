@@ -4,6 +4,7 @@ namespace App\Tests\App\Transaction;
 
 use App\Entity\Account;
 use App\Entity\Exception\SenderBalanceIsEmptyException;
+use App\Factory\TransactionFactory;
 use App\Identifier\CurrencyIdentifier;
 use App\Repository\AccountRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
@@ -29,11 +30,14 @@ class MoneyTransferTransactionTest extends TestCase
         $accountRepository = $this->createMock(AccountRepositoryInterface::class);
         /** @var TransactionRepositoryInterface $transactionRepository */
         $transactionRepository = $this->createMock(TransactionRepositoryInterface::class);
+        /** @var TransactionFactory $transactionFactory */
+        $transactionFactory = new TransactionFactory();
 
         $this->moneyTransferTransaction = new MoneyTransferTransaction(
             $transactionManager,
             $accountRepository,
-            $transactionRepository
+            $transactionRepository,
+            $transactionFactory
         );
     }
 

@@ -5,6 +5,7 @@ namespace App\Transaction;
 use App\Entity\Account;
 use App\Entity\Exception\SenderBalanceIsEmptyException;
 use App\Entity\Transaction;
+use App\Factory\TransactionFactoryInterface;
 use App\Repository\AccountRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
 use App\Service\Exception\MoneyTransferTransactionException;
@@ -18,15 +19,19 @@ class MoneyTransferTransaction implements MoneyTransferTransactionInterface
     private $accountRepository;
     /** @var TransactionRepositoryInterface */
     private $transactionRepository;
+    /** @var TransactionFactoryInterface */
+    private $transactionFactory;
 
     public function __construct(
         TransactionManagerInterface $transactionManager,
         AccountRepositoryInterface $accountRepository,
-        TransactionRepositoryInterface $transactionRepository
+        TransactionRepositoryInterface $transactionRepository,
+        TransactionFactoryInterface $transactionFactory
     ) {
         $this->transactionManager = $transactionManager;
         $this->accountRepository = $accountRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->transactionFactory = $transactionFactory;
     }
 
     /**
@@ -58,7 +63,7 @@ class MoneyTransferTransaction implements MoneyTransferTransactionInterface
      */
     private function make($senderAccount, $recipientAccount, $transferringMoney): Transaction
     {
-        return $this->transactionRepository->make(
+        return $this->transactionFactory->make(
             $senderAccount,
             $recipientAccount,
             $transferringMoney

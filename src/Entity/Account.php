@@ -3,14 +3,11 @@
 namespace App\Entity;
 
 use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Identifier\AccountIdentifier;
 use App\Identifier\CurrencyIdentifier;
 use App\ValueObject\Money;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Сущность "Лицевой счет"
- * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
  */
 class Account
 {
@@ -28,19 +25,16 @@ class Account
      *   - первые 6 цифр - ID сети
      *   - вторые 10 цифр - ID клиента
      *   - третьи 4 цифры - ID валюты
-     * @ORM\Id()
-     * @ORM\Column(type="bigint", options={"unsigned"=true})
      */
     private $id;
 
     /**
      * Баланс счета
-     * @ORM\Column(type="integer", options={"default"=0, "unsigned"=true})
      */
     private $balance;
 
     /**
-     * @ORM\Column(type="smallint", options={"unsigned"=true})
+     * Режим блокировки лицевого счета
      */
     private $lock_mode;
 

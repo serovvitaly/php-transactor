@@ -3,6 +3,7 @@
 namespace App\Tests\App\Service;
 
 use App\Entity\Account;
+use App\Factory\TransactionFactory;
 use App\Identifier\CurrencyIdentifier;
 use App\Repository\AccountRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
@@ -35,10 +36,14 @@ class MoneyTransferServiceTest extends TestCase
         $accountRepository = $this->createMock(AccountRepositoryInterface::class);
         /** @var TransactionRepositoryInterface $transactionRepository */
         $transactionRepository = $this->createMock(TransactionRepositoryInterface::class);
+        /** @var TransactionFactory $transactionFactory */
+        $transactionFactory = new TransactionFactory();
+
         $moneyTransferTransaction = new \App\Transaction\MoneyTransferTransaction(
             $transactionManager,
             $accountRepository,
-            $transactionRepository
+            $transactionRepository,
+            $transactionFactory
         );
 
         $this->moneyTransferService = new MoneyTransferService(

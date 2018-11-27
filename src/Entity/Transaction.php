@@ -2,17 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
- * @ORM\Table(
- *     name="transaction",
- *     indexes={
- *         @ORM\Index(name="sender_account_idx", columns={"sender_account_id"}),
- *         @ORM\Index(name="recipient_account_idx", columns={"recipient_account_id"})
- *     }
- * )
+ *
  */
 class Transaction
 {
@@ -20,31 +11,14 @@ class Transaction
     const SUCCESS_STATUS = 2;
     const FAILURE_STATUS = 3;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="bigint", options={"unsigned"=true})
-     */
     private $id;
 
-    /**
-     * @ORM\Column(type="bigint", options={"unsigned"=true})
-     */
     private $sender_account_id;
 
-    /**
-     * @ORM\Column(type="bigint", options={"unsigned"=true})
-     */
     private $recipient_account_id;
 
-    /**
-     * @ORM\Column(type="integer", options={"unsigned"=true})
-     */
     private $money_minor_units;
 
-    /**
-     * @ORM\Column(type="smallint", options={"unsigned"=true})
-     */
     private $status_code;
 
     public function getId(): ?int
@@ -115,15 +89,5 @@ class Transaction
     public function getStatusCode(): int
     {
         return $this->status_code;
-    }
-
-    public function postPersist($entity, $event)
-    {
-        var_dump($entity, $event);
-    }
-
-    public function postUpdate($entity, $event)
-    {
-        var_dump($entity, $event);
     }
 }
