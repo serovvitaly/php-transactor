@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace PhpTransactor\Entity;
 
-use App\ValueObject\Money;
+use PhpTransactor\ValueObject\Money;
 
 /**
  *

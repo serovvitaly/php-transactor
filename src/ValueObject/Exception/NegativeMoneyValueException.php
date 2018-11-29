@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ValueObject\Exception;
+namespace PhpTransactor\ValueObject\Exception;
 
 /**
  * Исключение "Отрацательно денежное значение"

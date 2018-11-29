@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Identifier;
+namespace PhpTransactor\Identifier;
 
 class CurrencyIdentifier
 {

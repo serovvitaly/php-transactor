@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Transaction;
+namespace PhpTransactor\Transaction;
 
-use App\Entity\Account;
-use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Entity\Transaction;
-use App\Factory\TransactionFactoryInterface;
-use App\Repository\AccountRepositoryInterface;
-use App\Repository\TransactionRepositoryInterface;
-use App\Service\Exception\MoneyTransferTransactionException;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Entity\Exception\SenderBalanceIsEmptyException;
+use PhpTransactor\Entity\Transaction;
+use PhpTransactor\Factory\TransactionFactoryInterface;
+use PhpTransactor\Repository\AccountRepositoryInterface;
+use PhpTransactor\Repository\TransactionRepositoryInterface;
+use PhpTransactor\Service\Exception\MoneyTransferTransactionException;
+use PhpTransactor\ValueObject\Money;
 
 class MoneyTransferTransaction implements MoneyTransferTransactionInterface
 {

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Tests\App\Transaction;
+namespace PhpTransactor\Tests\Transaction;
 
-use App\Entity\Account;
-use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Factory\TransactionFactory;
-use App\Identifier\CurrencyIdentifier;
-use App\Repository\AccountRepositoryInterface;
-use App\Repository\TransactionRepositoryInterface;
-use App\Service\Exception\MoneyTransferTransactionException;
-use App\Transaction\MoneyTransferTransaction;
-use App\Transaction\TransactionManagerInterface;
-use App\ValueObject\Exception\NegativeMoneyValueException;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Entity\Exception\SenderBalanceIsEmptyException;
+use PhpTransactor\Factory\TransactionFactory;
+use PhpTransactor\Identifier\CurrencyIdentifier;
+use PhpTransactor\Repository\AccountRepositoryInterface;
+use PhpTransactor\Repository\TransactionRepositoryInterface;
+use PhpTransactor\Service\Exception\MoneyTransferTransactionException;
+use PhpTransactor\Transaction\MoneyTransferTransaction;
+use PhpTransactor\Transaction\TransactionManagerInterface;
+use PhpTransactor\ValueObject\Exception\NegativeMoneyValueException;
+use PhpTransactor\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTransferTransactionTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Exception;
+namespace PhpTransactor\Service\Exception;
 
 /**
  * Исключение "Невозможно перевести деньги между одним счетом"

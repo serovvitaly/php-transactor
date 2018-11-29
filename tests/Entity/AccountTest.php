@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\App\Entity;
+namespace PhpTransactor\Tests\Entity;
 
-use App\Entity\Account;
+use PhpTransactor\Entity\Account;
 use PHPUnit\Framework\TestCase;
 
 class AccountTest extends TestCase

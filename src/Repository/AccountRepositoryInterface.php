@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace PhpTransactor\Repository;
 
-use App\Entity\Account;
-use App\Identifier\AccountIdentifier;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Identifier\AccountIdentifier;
 
 interface AccountRepositoryInterface
 {

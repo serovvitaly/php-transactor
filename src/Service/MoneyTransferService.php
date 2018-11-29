@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Service;
+namespace PhpTransactor\Service;
 
-use App\Entity\Account;
-use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Service\Exception\AttemptTransferZeroAmountException;
-use App\Service\Exception\CurrenciesMismatchMoneyTransferException;
-use App\Service\Exception\MoneyTransferBetweenSameAccountException;
-use App\Service\Exception\TransactionException;
-use App\Service\Exception\ValidationException;
-use App\Transaction\MoneyTransferTransactionInterface;
-use App\Validator\MoneyTransferValidatorInterface;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Entity\Exception\SenderBalanceIsEmptyException;
+use PhpTransactor\Service\Exception\AttemptTransferZeroAmountException;
+use PhpTransactor\Service\Exception\CurrenciesMismatchMoneyTransferException;
+use PhpTransactor\Service\Exception\MoneyTransferBetweenSameAccountException;
+use PhpTransactor\Service\Exception\TransactionException;
+use PhpTransactor\Service\Exception\ValidationException;
+use PhpTransactor\Transaction\MoneyTransferTransactionInterface;
+use PhpTransactor\Validator\MoneyTransferValidatorInterface;
+use PhpTransactor\ValueObject\Money;
 
 class MoneyTransferService implements MoneyTransferServiceInterface
 {

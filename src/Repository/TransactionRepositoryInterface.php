@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace PhpTransactor\Repository;
 
-use App\Entity\Transaction;
+use PhpTransactor\Entity\Transaction;
 
 interface TransactionRepositoryInterface
 {

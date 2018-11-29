@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Transaction;
+namespace PhpTransactor\Transaction;
 
 interface TransactionManagerInterface
 {

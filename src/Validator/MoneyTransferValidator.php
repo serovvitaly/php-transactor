@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Validator;
+namespace PhpTransactor\Validator;
 
-use App\Entity\Account;
-use App\Service\Exception\AttemptTransferZeroAmountException;
-use App\Service\Exception\CurrenciesMismatchMoneyTransferException;
-use App\Service\Exception\MoneyTransferBetweenSameAccountException;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Service\Exception\AttemptTransferZeroAmountException;
+use PhpTransactor\Service\Exception\CurrenciesMismatchMoneyTransferException;
+use PhpTransactor\Service\Exception\MoneyTransferBetweenSameAccountException;
+use PhpTransactor\ValueObject\Money;
 
 class MoneyTransferValidator implements MoneyTransferValidatorInterface
 {

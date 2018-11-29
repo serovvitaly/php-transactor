@@ -1,9 +1,9 @@
 <?php
 
-namespace App\ValueObject;
+namespace PhpTransactor\ValueObject;
 
-use App\Identifier\CurrencyIdentifier;
-use App\ValueObject\Exception\NegativeMoneyValueException;
+use PhpTransactor\Identifier\CurrencyIdentifier;
+use PhpTransactor\ValueObject\Exception\NegativeMoneyValueException;
 
 class Money
 {

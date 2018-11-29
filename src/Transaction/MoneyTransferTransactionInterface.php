@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Transaction;
+namespace PhpTransactor\Transaction;
 
-use App\Entity\Account;
-use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Service\Exception\MoneyTransferTransactionException;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Entity\Exception\SenderBalanceIsEmptyException;
+use PhpTransactor\Service\Exception\MoneyTransferTransactionException;
+use PhpTransactor\ValueObject\Money;
 
 interface MoneyTransferTransactionInterface
 {

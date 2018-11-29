@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Tests\App\Validator;
+namespace PhpTransactor\Tests\Validator;
 
-use App\Entity\Account;
-use App\Identifier\AccountIdentifier;
-use App\Identifier\CurrencyIdentifier;
-use App\Repository\AccountRepositoryInterface;
-use App\Service\Exception\AttemptTransferZeroAmountException;
-use App\Service\Exception\CurrenciesMismatchMoneyTransferException;
-use App\Service\Exception\MoneyTransferBetweenSameAccountException;
-use App\Validator\MoneyTransferValidator;
-use App\ValueObject\Exception\NegativeMoneyValueException;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Identifier\CurrencyIdentifier;
+use PhpTransactor\Service\Exception\AttemptTransferZeroAmountException;
+use PhpTransactor\Service\Exception\CurrenciesMismatchMoneyTransferException;
+use PhpTransactor\Service\Exception\MoneyTransferBetweenSameAccountException;
+use PhpTransactor\Validator\MoneyTransferValidator;
+use PhpTransactor\ValueObject\Exception\NegativeMoneyValueException;
+use PhpTransactor\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTransferValidatorTest extends TestCase

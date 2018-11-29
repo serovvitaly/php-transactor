@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Factory;
+namespace PhpTransactor\Factory;
 
-use App\Entity\Account;
-use App\Entity\Transaction;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Entity\Transaction;
+use PhpTransactor\ValueObject\Money;
 
 class TransactionFactory implements TransactionFactoryInterface
 {

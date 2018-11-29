@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Tests\App\Service;
+namespace PhpTransactor\Tests\Service;
 
-use App\Entity\Account;
-use App\Factory\TransactionFactory;
-use App\Identifier\CurrencyIdentifier;
-use App\Repository\AccountRepositoryInterface;
-use App\Repository\TransactionRepositoryInterface;
-use App\Service\Exception\TransactionException;
-use App\Service\Exception\ValidationException;
-use App\Service\MoneyTransferService;
-use App\Service\MoneyTransferServiceInterface;
-use App\Transaction\TransactionManagerInterface;
-use App\Validator\MoneyTransferValidatorInterface;
-use App\ValueObject\Exception\NegativeMoneyValueException;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\Factory\TransactionFactory;
+use PhpTransactor\Identifier\CurrencyIdentifier;
+use PhpTransactor\Repository\AccountRepositoryInterface;
+use PhpTransactor\Repository\TransactionRepositoryInterface;
+use PhpTransactor\Service\Exception\TransactionException;
+use PhpTransactor\Service\Exception\ValidationException;
+use PhpTransactor\Service\MoneyTransferService;
+use PhpTransactor\Service\MoneyTransferServiceInterface;
+use PhpTransactor\Transaction\MoneyTransferTransaction;
+use PhpTransactor\Transaction\TransactionManagerInterface;
+use PhpTransactor\Validator\MoneyTransferValidator;
+use PhpTransactor\ValueObject\Exception\NegativeMoneyValueException;
+use PhpTransactor\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTransferServiceTest extends TestCase
@@ -28,7 +29,7 @@ class MoneyTransferServiceTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
 
-        $moneyTransferValidator = new \App\Validator\MoneyTransferValidator();
+        $moneyTransferValidator = new MoneyTransferValidator();
 
         /** @var TransactionManagerInterface $transactionManager */
         $transactionManager = $this->createMock(TransactionManagerInterface::class);
@@ -39,7 +40,7 @@ class MoneyTransferServiceTest extends TestCase
         /** @var TransactionFactory $transactionFactory */
         $transactionFactory = new TransactionFactory();
 
-        $moneyTransferTransaction = new \App\Transaction\MoneyTransferTransaction(
+        $moneyTransferTransaction = new MoneyTransferTransaction(
             $transactionManager,
             $accountRepository,
             $transactionRepository,

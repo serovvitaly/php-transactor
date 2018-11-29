@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Service;
+namespace PhpTransactor\Service;
 
-use App\Entity\Account;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Account;
+use PhpTransactor\ValueObject\Money;
 
 interface MoneyTransferServiceInterface
 {

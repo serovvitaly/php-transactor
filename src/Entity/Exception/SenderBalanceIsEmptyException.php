@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Exception;
+namespace PhpTransactor\Entity\Exception;
 
 /**
  * Исключение "Баланс отправителя пуст"

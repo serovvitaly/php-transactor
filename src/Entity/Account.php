@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace PhpTransactor\Entity;
 
-use App\Entity\Exception\SenderBalanceIsEmptyException;
-use App\Identifier\CurrencyIdentifier;
-use App\ValueObject\Money;
+use PhpTransactor\Entity\Exception\SenderBalanceIsEmptyException;
+use PhpTransactor\Identifier\CurrencyIdentifier;
+use PhpTransactor\ValueObject\Money;
 
 /**
  * Сущность "Лицевой счет"
