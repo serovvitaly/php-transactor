@@ -31,7 +31,7 @@ class Account
     /**
      * Баланс счета
      */
-    private $balance;
+    private $balance = 0;
 
     /**
      * Режим блокировки лицевого счета
@@ -78,12 +78,18 @@ class Account
     }
 
     /**
-     * Операция списания денег
+     * Операция списания денег,
+     * если счет является "Системным", то проверка и уменьшение баланса не требуется
      * @param Money $money
      * @throws SenderBalanceIsEmptyException
      */
     public function withdrawMoney(Money $money): void
     {
+        if ($this->isRoot()) {
+            /** Если счет является "Системным", то проверка и уменьшение баланса не требуется */
+            return;
+        }
+
         if ($this->balance < $money->getValueAsMinorUnits()) {
             throw new SenderBalanceIsEmptyException();
         }
@@ -91,11 +97,17 @@ class Account
     }
 
     /**
-     * Операция зачисления денег
+     * Операция зачисления денег,
+     * если счет является "Системным", то увеличение баланса не требуется
      * @param Money $money
      */
     public function contributeMoney(Money $money): void
     {
+        if ($this->isRoot()) {
+            /** Если счет является "Системным", то увеличение баланса не требуется */
+            return;
+        }
+
         $this->balance = $this->balance + $money->getValueAsMinorUnits();
     }
 

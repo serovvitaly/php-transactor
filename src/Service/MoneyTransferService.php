@@ -59,8 +59,6 @@ class MoneyTransferService implements MoneyTransferServiceInterface
             );
         } catch (SenderBalanceIsEmptyException $e) {
             throw new TransactionException($e->getMessage(), $e->getCode(), $e);
-        } catch (CurrenciesMismatchMoneyTransferException $e) {
-            throw new TransactionException($e->getMessage(), $e->getCode(), $e);
         } catch (Exception\MoneyTransferTransactionException $e) {
             throw new TransactionException($e->getMessage(), $e->getCode(), $e);
         }
