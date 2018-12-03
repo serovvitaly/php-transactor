@@ -118,4 +118,15 @@ class AccountTest extends TestCase
         $account->lockedFull();
         $this->assertTrue($account->isContributeLocked());
     }
+
+    public function testMarkAsRoot()
+    {
+        $account = new Account();
+        $account->setId('10020010002000009850');
+        $this->assertFalse($account->isRoot());
+
+        $account = new Account();
+        $account->setId('00000000000000009850');
+        $this->assertTrue($account->isRoot());
+    }
 }

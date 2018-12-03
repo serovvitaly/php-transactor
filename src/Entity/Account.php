@@ -38,15 +38,43 @@ class Account
      */
     private $lock_mode;
 
+    /**
+     * Маркер "Системный лицевой счет"
+     * @var bool
+     */
+    private $isRoot = false;
+
     public function setId(string $id): self
     {
         $this->id = $id;
+
+        if (preg_match('/^([0]{16})$/', substr($this->id, 0, -4))) {
+            $this->markAsRoot();
+        }
+
         return $this;
     }
 
     public function getId(): ?string
     {
         return $this->id;
+    }
+
+    /**
+     * Маркирует лицевой счет как "Системный лицевой счет"
+     */
+    private function markAsRoot()
+    {
+        $this->isRoot = true;
+    }
+
+    /**
+     * Возвращает маркер, является ли лицевой счет "Системным лицевым счетом"
+     * @return bool
+     */
+    public function isRoot(): bool
+    {
+        return $this->isRoot;
     }
 
     /**
